@@ -15,24 +15,24 @@ ofxCurvesTool::ofxCurvesTool()
 GLdouble modelviewMatrix[16], projectionMatrix[16];
 GLint viewport[4];
 void updateProjectionState() {
-    glGetDoublev(GL_MODELVIEW_MATRIX, modelviewMatrix);
-    glGetDoublev(GL_PROJECTION_MATRIX, projectionMatrix);
-    glGetIntegerv(GL_VIEWPORT, viewport);
+	glGetDoublev(GL_MODELVIEW_MATRIX, modelviewMatrix);
+	glGetDoublev(GL_PROJECTION_MATRIX, projectionMatrix);
+	glGetIntegerv(GL_VIEWPORT, viewport);
 }
 
 ofVec3f worldToScreen(ofVec3f world) {
-    updateProjectionState();
-    GLdouble x, y, z;
-    gluProject(world.x, world.y, world.z, modelviewMatrix, projectionMatrix, viewport, &x, &y, &z);
-    ofVec3f screen(x, y, z);
-    screen.y = ofGetHeight() - screen.y;
-    return screen;
+	updateProjectionState();
+	GLdouble x, y, z;
+	gluProject(world.x, world.y, world.z, modelviewMatrix, projectionMatrix, viewport, &x, &y, &z);
+	ofVec3f screen(x, y, z);
+	screen.y = ofGetHeight() - screen.y;
+	return screen;
 }
 
 void ofxCurvesTool::draw() {
 	drawn = true; // we've made a call to draw
 	drawPosition = worldToScreen(ofVec2f(0, 0));
-
+	
 	ofPushStyle();
 	ofPushMatrix();
 	ofTranslate(0, n);
@@ -199,7 +199,7 @@ void ofxCurvesTool::keyPressed(ofKeyEventArgs& args) {
  object is not drawn using draw(), we know here because draw() never set the
  drawn flag. in that case, we unregister events. if it changes from being off
  to on, then we register the events again.
-*/
+ */
 void ofxCurvesTool::drawEvent(ofEventArgs& args) {
 	bool prevDrawing = drawing;
 	drawing = drawn;
