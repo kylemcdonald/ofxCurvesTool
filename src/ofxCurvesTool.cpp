@@ -29,12 +29,15 @@ ofVec3f worldToScreen(ofVec3f world) {
 	return screen;
 }
 
-void ofxCurvesTool::draw() {
+void ofxCurvesTool::draw(int x, int y) {
 	drawn = true; // we've made a call to draw
-	drawPosition = worldToScreen(ofVec2f(0, 0));
 	
 	ofPushStyle();
 	ofPushMatrix();
+	ofTranslate(x, y);
+	
+	drawPosition = worldToScreen(ofVec2f(0, 0));
+	
 	ofTranslate(0, n);
 	ofScale(1, -1);
 	

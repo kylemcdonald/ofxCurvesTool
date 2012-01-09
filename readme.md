@@ -26,4 +26,4 @@ By default ofxCurvesTool uses 256 bins, but if you call `ofxCurvesTool::setup(12
 
 ## Drawing
 
-`ofxCurvesTool::draw()` takes no arguments. You have to position it using `ofTranslate()`. If you happen to scale or rotate `ofxCurvesTool`, it may get confused about where your mouse is clicking.
+If you happen to scale or rotate `ofxCurvesTool`, it may get confused about where your mouse is clicking, but it's ok to translate it however you like.

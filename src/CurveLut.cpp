@@ -1,5 +1,10 @@
 #include "CurveLut.h"
 
+CurveLut::CurveLut()
+:n(0)
+,lutNew(false) {
+}
+	
 void CurveLut::setup(int n) {
 	this->n = n;
 	lut.resize(n);
@@ -108,8 +113,15 @@ void CurveLut::update() {
 	for(int x = 0; x < n; x++) {
 		lut[x] = ofClamp(lut[x], 0, n - 1);
 	}
+	lutNew = true;
 }
 
 float CurveLut::operator[](int i) const {
 	return lut[i];
+}
+
+bool CurveLut::isLutNew() {
+	bool cur = lutNew;
+	lutNew = false;
+	return cur;
 }
