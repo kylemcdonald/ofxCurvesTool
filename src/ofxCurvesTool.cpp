@@ -38,6 +38,7 @@ void ofxCurvesTool::draw(int x, int y) {
 	
 	drawPosition = worldToScreen(ofVec2f(0, 0));
 	
+	ofPushMatrix();
 	ofTranslate(0, n);
 	ofScale(1, -1);
 	
@@ -105,6 +106,7 @@ void ofxCurvesTool::draw(int x, int y) {
 		string label = ofToString((int) cur.x) + ", " + ofToString((int) cur.y);
 		ofDrawBitmapString(label, 4, 18);
 	}
+	ofPopMatrix();
 	ofPopStyle();
 }
 
@@ -124,17 +126,19 @@ void ofxCurvesTool::save(string filename) {
 
 // basic yml list-of-lists parser 
 void ofxCurvesTool::load(string filename) {
-	string in = ofFile(filename).readToBuffer();
-	ofStringReplace(in, " ", "");
-	vector<string> all = ofSplitString(in, "],[");
-	controlPoints.clear();
-	for(int i = 0; i < all.size(); i++) {
-		ofStringReplace(all[i], "[", "");
-		ofStringReplace(all[i], "]", "");
-		vector<string> parts = ofSplitString(all[i], ",");
-		add(ofVec2f(ofToFloat(parts[0]), ofToFloat(parts[1])));
+	if(ofFile(filename).exists()) {
+		string in = ofFile(filename).readToBuffer();
+		ofStringReplace(in, " ", "");
+		vector<string> all = ofSplitString(in, "],[");
+		controlPoints.clear();
+		for(int i = 0; i < all.size(); i++) {
+			ofStringReplace(all[i], "[", "");
+			ofStringReplace(all[i], "]", "");
+			vector<string> parts = ofSplitString(all[i], ",");
+			add(ofVec2f(ofToFloat(parts[0]), ofToFloat(parts[1])));
+		}
+		update();
 	}
-	update();
 }
 
 void ofxCurvesTool::updateMouse(ofMouseEventArgs& args) {
@@ -181,6 +185,8 @@ void ofxCurvesTool::mouseDragged(ofMouseEventArgs& args) {
 	updateMouse(args);
 	if(dragState) {
 		set(curHover, ofVec2f(mouseX, mouseY));
+	} else {
+		focus = false;
 	}
 }
 
