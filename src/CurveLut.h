@@ -12,6 +12,8 @@ public:
 	void update();
 	float operator[](int i) const;
 	int size() const;
+	int getStart() const;
+	int getStop() const;
 	bool isLutNew();
 	
 protected:

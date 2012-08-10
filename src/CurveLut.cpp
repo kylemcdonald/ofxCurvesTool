@@ -120,6 +120,18 @@ float CurveLut::operator[](int i) const {
 	return lut[i];
 }
 
+int CurveLut::size() const {
+	return lut.size();
+}
+
+int CurveLut::getStart() const {
+	return controlPoints.front().x;
+}
+
+int CurveLut::getStop() const {
+	return controlPoints.back().x;
+}
+
 bool CurveLut::isLutNew() {
 	bool cur = lutNew;
 	lutNew = false;
